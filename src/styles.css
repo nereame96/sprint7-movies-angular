@@ -1,3 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "tailwindcss";
+
+body {
+  background-color: rgb(3 7 18); /* gray-950 */
+  color: white;
+  min-height: 100vh;
+}
+
+h1{
+  color: rgb(255, 224, 130); /*amber-200*/
+  font-size: 45px ;
+  font-weight: 600;
+}

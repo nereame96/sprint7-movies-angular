@@ -1,0 +1,79 @@
+<div class="max-w-4xl mx-auto px-6 py-10">
+
+  <!-- Loading -->
+  @if (isLoading()) {
+    <div class="flex items-center justify-center min-h-screen">
+      <div class="w-16 h-16 border-4 border-gray-700 border-t-yellow-400
+                  rounded-full animate-spin"></div>
+    </div>
+  } @else {
+
+    <!-- Botón volver -->
+    <a routerLink="/movies"
+       class="inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 mb-8 cursor-pointer">
+      ← Back to Popular movies
+    </a>
+
+    <!-- Detalles -->
+    @if (details(); as movie) {
+      <div class="text-white">
+
+        <!-- Título -->
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+          {{ movie.title }}
+        </h1>
+
+        <!-- Tagline -->
+        @if (movie.tagline) {
+          <p class="text-xl text-gray-400 italic mb-6">
+            "{{ movie.tagline }}"
+          </p>
+        }
+
+        <!-- Rating y año -->
+        <div class="flex items-center gap-4 mb-6 text-sm">
+          <span class="text-yellow-400 font-semibold text-lg">
+            ⭐ {{ movie.vote_average.toFixed(1) }}
+          </span>
+          <span class="text-gray-300">
+            📅 {{ movie.release_date | date:'yyyy' }}
+          </span>
+          <span class="text-gray-300">
+            ⏱️ {{ movie.runtime }} min
+          </span>
+        </div>
+
+        <!-- Géneros -->
+        <div class="flex flex-wrap gap-2 mb-6">
+          @for (genre of movie.genres; track genre.id) {
+            <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">
+              {{ genre.name }}
+            </span>
+          }
+        </div>
+
+        <!-- Sinopsis -->
+        <div class="mb-6">
+          <h2 class="text-2xl font-bold mb-3">Synopsis</h2>
+          <p class="text-gray-300 leading-relaxed">
+            {{ movie.overview }}
+          </p>
+        </div>
+
+        <!-- Poster -->
+        <img
+          [src]="moviesService.getPosterUrl(movie.poster_path)"
+          [alt]="movie.title"
+          class="w-64 rounded-lg shadow-xl"
+        />
+
+      </div>
+    } @else {
+      <div class="text-center text-gray-400 py-20">
+        <p>No details found of this movie</p>
+      </div>
+    }
+
+  }
+
+</div>

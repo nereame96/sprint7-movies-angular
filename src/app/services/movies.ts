@@ -1,0 +1,119 @@
+import { inject, Injectable, signal } from '@angular/core';
+import { environment } from '../../environments/environment.development';
+import { HttpClient } from '@angular/common/http';
+import { MovieApiResponse } from '../models/movie-api.interface';
+import { Movie } from '../models/movie.interface';
+import { MovieMapper } from '../mapper/movie.mapper';
+import { MovieDetails } from '../models/movie-details.interface';
+import { Credits } from '../models/credits.interface';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class MoviesService {
+
+  private apiUrl = environment.tmdbBaseUrl
+  private apiKey = environment.tmdbApiKey
+  private imageBaseUrl = environment.tmdbImageBaseUrl
+  private http = inject(HttpClient)
+
+  popularMovies = signal<Movie[]>([])
+  currentPage = signal<number>(1)
+  totalPages = signal<number>(0)
+  isLoading = signal<boolean>(false)
+  movieDetails = signal<MovieDetails | null>(null)
+  movieCredits = signal<Credits | null>(null)
+  loadingDetails = signal<boolean>(false)
+
+
+
+
+
+  constructor() {
+    this.loadPopularMovies()
+  }
+
+  loadPopularMovies() {
+
+    if (this.isLoading()) return
+
+    this.isLoading.set(true)
+
+    this.http.get<MovieApiResponse>(`${this.apiUrl}/movie/popular`, {
+      params: {
+        api_key: this.apiKey,
+        language: 'en-EN',
+        page: this.currentPage().toString()
+      }
+    })
+    .subscribe({
+      next: (resp) => {
+      const newMovies = MovieMapper.mapMovieApiItemtoMovieArray(resp.results)
+
+      this.popularMovies.update(movies =>[...movies, ...newMovies] )
+
+      this.totalPages.set(resp.total_pages)
+      this.currentPage.update(page => page + 1)
+      this.isLoading.set(false)
+      console.log({ newMovies })
+
+      },
+      error: (err) => {
+      console.error('Error loading movies', err)
+      this.isLoading.set(false)
+      }
+    })
+  }
+
+
+  getMovieDetails(movieId: number){
+
+    this.loadingDetails.set(true)
+    this.movieDetails.set(null)
+
+    this.http.get<MovieDetails>(`${this.apiUrl}/movie/${movieId}`, {
+      params: {
+        api_key: this.apiKey,
+        language: 'en-EN',
+
+      }
+    })
+    .subscribe({
+      next: (resp) => {
+        this.movieDetails.set(resp)
+        this.loadingDetails.set(false)
+      },
+
+    error: (err) => {
+      console.error('Error getting movie details', err)
+      this.loadingDetails.set(false)
+    }
+
+    })
+  }
+
+  hasMorePages(): boolean {
+    return this.currentPage() <= this.totalPages()
+  }
+
+ getImageUrl(path: string | null, size: 'w500' | 'w780' | 'original' = 'w500'): string {
+    if (!path) {
+      return 'assets/no-image.png';
+    }
+    return `${this.imageBaseUrl}/${size}${path}`;
+  }
+
+
+  getPosterUrl(path: string | null): string {
+    return this.getImageUrl(path, 'w500');
+  }
+
+  getBackdropUrl(path: string | null): string {
+    return this.getImageUrl(path, 'w780');
+  }
+
+
+}
+
+
+
