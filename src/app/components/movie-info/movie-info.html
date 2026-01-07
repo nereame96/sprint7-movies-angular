@@ -1,4 +1,4 @@
-<div class="max-w-4xl mx-auto px-6 py-10">
+<div class="max-w-6xl mx-auto px-6 py-10">
 
   <!-- Loading -->
   @if (isLoading()) {
@@ -11,28 +11,40 @@
     <!-- Botón volver -->
     <a routerLink="/movies"
        class="inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 mb-8 cursor-pointer">
-      ← Back to Popular movies
+      ← Back
     </a>
 
     <!-- Detalles -->
     @if (details(); as movie) {
-      <div class="text-white">
+      <div class="flex flex-col   text-white">
 
         <!-- Título -->
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 ">
           {{ movie.title }}
         </h1>
 
         <!-- Tagline -->
         @if (movie.tagline) {
-          <p class="text-xl text-gray-400 italic mb-6">
+          <p class="text-xl text-gray-400 italic mb-10 ">
             "{{ movie.tagline }}"
           </p>
         }
 
-        <!-- Rating y año -->
-        <div class="flex items-center gap-4 mb-6 text-sm">
-          <span class="text-yellow-400 font-semibold text-lg">
+        <div class="flex flex-col lg:flex-row my-2 gap-9">
+          <!-- Poster -->
+          <div >
+            <img
+            [src]="moviesService.getPosterUrl(movie.poster_path)"
+            [alt]="movie.title"
+            class="object-cover lg:w-72 rounded-lg shadow-xl"
+            />
+          </div>
+
+          <div>
+
+           <!-- Rating y año -->
+           <div class="flex items-center gap-4 mb-6 text-sm">
+             <span class="text-yellow-400 font-semibold text-lg">
             ⭐ {{ movie.vote_average.toFixed(1) }}
           </span>
           <span class="text-gray-300">
@@ -53,25 +65,48 @@
         </div>
 
         <!-- Sinopsis -->
-        <div class="mb-6">
-          <h2 class="text-2xl font-bold mb-3">Synopsis</h2>
-          <p class="text-gray-300 leading-relaxed">
+        <div class="mb-6 lg:max-w-3xl">
+          <h2 class="text-3xl font-bold mb-3">Synopsis</h2>
+          <p class="text-gray-300 text-lg leading-relaxed text-justify">
             {{ movie.overview }}
           </p>
         </div>
 
-        <!-- Poster -->
-        <img
-          [src]="moviesService.getPosterUrl(movie.poster_path)"
-          [alt]="movie.title"
-          class="w-64 rounded-lg shadow-xl"
-        />
+      </div>
+
+      </div>
 
       </div>
     } @else {
       <div class="text-center text-gray-400 py-20">
         <p>No details found of this movie</p>
       </div>
+    }
+
+    @if (getMainCast().length > 0) {
+      <section class="my-12 ">
+        <h2 class="text-3xl font-bold mb-5 text-center">Main cast</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          @for (actor of getMainCast(); track actor.id) {
+            <div class="flex flex-col   bg-gray-900 rounded-lg overflow-hidden hover:scale-105 transition-transform">
+              <div class="aspect-2/3">
+                <img
+                [src]="moviesService.getProfileUrl(actor.profile_path)"
+                [alt]="actor.name"
+                class="w-full h-full object-cover">
+              </div>
+              <div class="p-3">
+                    <h3 class="text-white font-semibold text-sm mb-1 line-clamp-1 ">
+                      {{ actor.name }}
+                    </h3>
+                    <p class="text-amber-200 text-xs line-clamp-2">
+                      {{ actor.character }}
+                    </p>
+                  </div>
+            </div>
+          }
+        </div>
+      </section>
     }
 
   }

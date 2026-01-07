@@ -15,14 +15,20 @@ export class MovieInfoComponent implements OnInit {
   moviesService = inject(MoviesService)
   isLoading = this.moviesService.loadingDetails
   details = this.moviesService.movieDetails
+  credits = this.moviesService.movieCredits
   movieId: number = 0
 
   ngOnInit() {
 
     const id = this.route.snapshot.params['id'];
-    const movieId = +id
+    const movieId = +id // pasa de string a numero con el +
 
     this.moviesService.getMovieDetails(movieId)
+    this.moviesService.getMovieCredits(movieId)
 
+  }
+
+  getMainCast(limit: number = 6){
+    return this.credits()?.cast.slice(0, limit) || []
   }
 }

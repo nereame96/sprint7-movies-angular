@@ -24,6 +24,7 @@ export class MoviesService {
   movieDetails = signal<MovieDetails | null>(null)
   movieCredits = signal<Credits | null>(null)
   loadingDetails = signal<boolean>(false)
+  loadingCredits = signal<boolean>(false)
 
 
 
@@ -85,10 +86,34 @@ export class MoviesService {
       },
 
     error: (err) => {
-      console.error('Error getting movie details', err)
+      console.error('Error geting movie details', err)
       this.loadingDetails.set(false)
     }
 
+    })
+  }
+
+  getMovieCredits(movieId: number){
+
+    this.loadingCredits.set(true)
+    this.movieDetails.set(null)
+
+    this.http.get<Credits>(`${this.apiUrl}/movie/${movieId}/credits`, {
+      params: {
+        api_key: this.apiKey,
+        language: 'en-EN',
+      }
+    })
+    .subscribe({
+      next: (credits) => {
+        this.movieCredits.set(credits)
+        this.loadingCredits.set(false)
+      },
+
+      error: (err) => {
+        console.error('Error geting movie credits', err)
+        this.loadingCredits.set(false)
+      }
     })
   }
 
@@ -110,6 +135,13 @@ export class MoviesService {
 
   getBackdropUrl(path: string | null): string {
     return this.getImageUrl(path, 'w780');
+  }
+
+  getProfileUrl(path: string | null, size: 'w185' | 'h632' | 'original' = 'w185'): string {
+    if (!path) {
+      return 'assets/no-image.png';
+    }
+    return `${this.imageBaseUrl}/${size}${path}`;
   }
 
 
