@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { MovieListComponent } from './components/movie-list/movie-list';
 import { MovieInfoComponent } from './components/movie-info/movie-info';
 import { HomeComponent } from './components/home/home';
+import { LoginComponent } from './components/login/login';
+import { RegisterComponent } from './components/register/register';
 
 export const routes: Routes = [
    {
@@ -18,6 +20,16 @@ export const routes: Routes = [
   {
     path: 'movies/:id',
     component: MovieInfoComponent,
+  },
+
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+
+  {
+    path: 'register',
+    component: RegisterComponent,
   },
 
   {
