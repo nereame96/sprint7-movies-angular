@@ -1,24 +1,32 @@
 
 
-<div class="max-w-sm mx-auto px-6 py-10 flex flex-col justify-center text-center border-none rounded-2xl  ring-2 ring-gray-500 focus:ring-gray-300 focus:ring-2 ">
+<form class=" max-w-sm mx-auto px-6 py-10 flex flex-col justify-center text-center border-none rounded-2xl  ring-2 ring-gray-500 focus:ring-gray-300 focus:ring-2 "
+      [formGroup]= "loginForm"
+      (ngSubmit)="onSubmit()">
   <h1 class="mb-5">Log In</h1>
 
-  <input type="email" placeholder="Email" id="emailInput"
-            class="border-none rounded-2xl  ring-2 ring-gray-500 focus:ring-gray-300 focus:ring-2 px-4 py-2 my-4 placeholder-white " >
+
+  <input type="email" placeholder="Email"  formControlName = "email"
+  class="border-none rounded-2xl  ring-2 ring-gray-500 focus:ring-gray-300 focus:ring-2 px-4 py-2 my-4 placeholder-white " >
 
 
-  <input type="password" placeholder="Password" id="passwordInput"
-          class="border-none rounded-2xl  ring-2 ring-gray-500 focus:ring-gray-300 focus:ring-2 px-4 py-2 my-4 placeholder-white ">
+  <input type="password" placeholder="Password" formControlName = "password"
+  class="border-none rounded-2xl  ring-2 ring-gray-500 focus:ring-gray-300 focus:ring-2 px-4 py-2 my-4 placeholder-white ">
 
   <button class="border-amber-200 border-2 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105
-                  transition-all duration-300 cursor-pointer px-4 py-2 text-white my-4">Log in</button>
+  transition-all duration-300 cursor-pointer px-4 py-2 text-white my-4">Log in</button>
 
+  @if (errorMessage()) {
+   <div class="bg-red-500/20 border border-red-500 text-red-400 px-4 py-3 rounded-lg mb-4">
+     {{ errorMessage() }}
+   </div>
+ }
   <div>
     <span>Don't have an account? </span>
     <a routerLink="/register" routerLinkActive="active" class="font-semibold text-amber-200">Register here</a>
 
   </div>
 
-</div>
+</form>
 
 

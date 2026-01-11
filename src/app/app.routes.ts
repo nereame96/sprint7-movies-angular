@@ -4,6 +4,7 @@ import { MovieInfoComponent } from './components/movie-info/movie-info';
 import { HomeComponent } from './components/home/home';
 import { LoginComponent } from './components/login/login';
 import { RegisterComponent } from './components/register/register';
+import { canActivate, redirectUnauthorizedTo } from "@angular/fire/auth-guard";
 
 export const routes: Routes = [
    {
@@ -15,11 +16,13 @@ export const routes: Routes = [
   {
     path: 'movies',
     component: MovieListComponent,
+    ...canActivate(() => redirectUnauthorizedTo(['/login']))
   },
 
   {
     path: 'movies/:id',
     component: MovieInfoComponent,
+     ...canActivate(() => redirectUnauthorizedTo(['/login']))
   },
 
   {

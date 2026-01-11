@@ -28,10 +28,10 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
-# Environments 
+# Environments
 /src/environments/environment.development.ts
 /src/environments/environment.ts
-
+/src/environments/firebase.config.ts
 
 # Miscellaneous
 /.angular/cache
