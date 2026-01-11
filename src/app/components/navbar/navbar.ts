@@ -13,12 +13,9 @@ export class NavbarComponent {
   private authService = inject(AuthService)
   private router = inject(Router)
 
+  isAuthenticated = this.authService.isAuthenticated
 
-  ngOnInit(): void {
-
-  }
-
-  onClick() {
+  onLogout() {
     this.authService.logout()
       .then(() => {
         this.router.navigate([''])

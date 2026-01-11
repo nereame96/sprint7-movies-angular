@@ -117,6 +117,12 @@ export class MoviesService {
     })
   }
 
+
+  getSimilarMovies(movieId: number) {
+
+    
+  }
+
   hasMorePages(): boolean {
     return this.currentPage() <= this.totalPages()
   }
