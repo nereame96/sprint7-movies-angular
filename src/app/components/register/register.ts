@@ -6,7 +6,7 @@ import { passwordMatchValidator } from '../../validators/password-match.validato
 
 @Component({
   selector: 'app-register',
-  imports: [RouterLink, RouterLinkActive, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })

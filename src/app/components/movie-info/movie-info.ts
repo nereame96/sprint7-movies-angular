@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MoviesService } from '../../services/movies';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -16,6 +16,8 @@ export class MovieInfoComponent implements OnInit {
   isLoading = this.moviesService.loadingDetails
   details = this.moviesService.movieDetails
   credits = this.moviesService.movieCredits
+  similarMovies = this.moviesService.similarMovies
+  loadingSimilarMovies = this.moviesService.loadingSimilarMovies
   movieId: number = 0
 
   ngOnInit() {
@@ -25,10 +27,12 @@ export class MovieInfoComponent implements OnInit {
 
     this.moviesService.getMovieDetails(movieId)
     this.moviesService.getMovieCredits(movieId)
-
+    this.moviesService.getSimilarMovies(movieId)
   }
 
   getMainCast(limit: number = 6){
     return this.credits()?.cast.slice(0, limit) || []
   }
+
+
 }

@@ -6,6 +6,7 @@ import { Movie } from '../models/movie.interface';
 import { MovieMapper } from '../mapper/movie.mapper';
 import { MovieDetails } from '../models/movie-details.interface';
 import { Credits } from '../models/credits.interface';
+import { Language } from 'firebase/ai';
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +26,8 @@ export class MoviesService {
   movieCredits = signal<Credits | null>(null)
   loadingDetails = signal<boolean>(false)
   loadingCredits = signal<boolean>(false)
-
-
+  similarMovies = signal<Movie[]>([])
+  loadingSimilarMovies = signal<boolean>(false)
 
 
 
@@ -120,7 +121,27 @@ export class MoviesService {
 
   getSimilarMovies(movieId: number) {
 
-    
+    this.loadingSimilarMovies.set(true)
+    this.similarMovies.set([])
+
+    this.http.get<MovieApiResponse>(`${this.apiUrl}/movie/${movieId}/similar`, {
+      params: {
+        api_key: this.apiKey,
+        Language: 'en-EN',
+        page: '1',
+      }
+    })
+    .subscribe({
+      next: (resp) => {
+        const movies = MovieMapper.mapMovieApiItemtoMovieArray(resp.results)
+        this.similarMovies.set(movies.slice(0, 6))
+        this.loadingSimilarMovies.set(false)
+      },
+      error: (err) => {
+        console.error('Error geting similar movies', err)
+        this.loadingSimilarMovies.set(false)
+      }
+    })
   }
 
   hasMorePages(): boolean {

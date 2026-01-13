@@ -1,6 +1,6 @@
 <div class="max-w-6xl mx-auto px-6 py-10">
 
-  <!-- Loading -->
+
   @if (isLoading()) {
     <div class="flex items-center justify-center min-h-screen">
       <div class="w-16 h-16 border-4 border-gray-700 border-t-yellow-400
@@ -8,30 +8,20 @@
     </div>
   } @else {
 
-    <!-- Botón volver -->
+
     <a routerLink="/movies"
        class="inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 mb-8 cursor-pointer">
       ← Back
     </a>
 
-    <!-- Detalles -->
+
     @if (details(); as movie) {
       <div class="flex flex-col   text-white">
 
-        <!-- Título -->
-        <h1 class="text-4xl md:text-5xl font-bold mb-4 ">
-          {{ movie.title }}
-        </h1>
 
-        <!-- Tagline -->
-        @if (movie.tagline) {
-          <p class="text-xl text-gray-400 italic mb-10 ">
-            "{{ movie.tagline }}"
-          </p>
-        }
 
         <div class="flex flex-col lg:flex-row my-2 gap-9">
-          <!-- Poster -->
+
           <div >
             <img
             [src]="moviesService.getPosterUrl(movie.poster_path)"
@@ -41,8 +31,18 @@
           </div>
 
           <div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 ">
+              {{ movie.title }}
+            </h1>
 
-           <!-- Rating y año -->
+
+            @if (movie.tagline) {
+              <p class="text-xl text-gray-400 italic mb-10 ">
+                "{{ movie.tagline }}"
+              </p>
+            }
+
+
            <div class="flex items-center gap-4 mb-6 text-sm">
              <span class="text-yellow-400 font-semibold text-lg">
             ⭐ {{ movie.vote_average.toFixed(1) }}
@@ -55,7 +55,7 @@
           </span>
         </div>
 
-        <!-- Géneros -->
+
         <div class="flex flex-wrap gap-2 mb-6">
           @for (genre of movie.genres; track genre.id) {
             <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">
@@ -64,7 +64,7 @@
           }
         </div>
 
-        <!-- Sinopsis -->
+
         <div class="mb-6 lg:max-w-3xl">
           <h2 class="text-3xl font-bold mb-3">Synopsis</h2>
           <p class="text-gray-300 text-lg leading-relaxed text-justify">
@@ -108,6 +108,50 @@
         </div>
       </section>
     }
+
+    @if (similarMovies().length > 0) {
+          <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-5 text-center">Películas similares</h2>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              @for (similarMovie of similarMovies(); track similarMovie.id) {
+                <a [routerLink]="['/movies', similarMovie.id] "
+                   class="flex flex-col   bg-gray-900 rounded-lg overflow-hidden hover:scale-105 transition-transform">
+
+                  <div class="aspect-2/3">
+                    <img
+                      [src]="moviesService.getPosterUrl(similarMovie.poster_path)"
+                      [alt]="similarMovie.title"
+                      class="w-full h-full object-cover"
+
+                    />
+                  </div>
+
+                  <div class="p-3">
+                    <h3 class="text-white font-semibold text-sm mb-1 line-clamp-1 ">
+                      {{ similarMovie.title }}
+                    </h3>
+                    <p class="text-amber-200 text-xs line-clamp-2">
+                     ⭐ {{ similarMovie.vote_average.toFixed(1) }}
+                    </p>
+                  </div>
+
+                </a>
+              }
+            </div>
+          </section>
+        }
+
+        <!-- Loading de películas similares -->
+        @if (loadingSimilarMovies()) {
+          <section class="mb-12">
+            <h2 class="text-2xl font-bold text-white mb-6">Películas similares</h2>
+            <div class="flex justify-center py-8">
+              <div class="w-12 h-12 border-4 border-gray-700 border-t-yellow-400
+                          rounded-full animate-spin"></div>
+            </div>
+          </section>
+        }
 
   }
 

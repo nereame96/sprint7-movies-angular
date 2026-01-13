@@ -1,18 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { MovieInfo } from './movie-info';
+import { provideRouter } from '@angular/router';
+import { MovieInfoComponent } from './movie-info';
 
 describe('MovieInfo', () => {
-  let component: MovieInfo;
-  let fixture: ComponentFixture<MovieInfo>;
+  let component: MovieInfoComponent;
+  let fixture: ComponentFixture<MovieInfoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MovieInfo]
+      imports: [MovieInfoComponent],
+      providers: [
+      provideRouter([]) 
+    ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MovieInfo);
+    fixture = TestBed.createComponent(MovieInfoComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
