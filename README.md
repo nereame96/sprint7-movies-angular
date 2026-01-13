@@ -1,59 +1,265 @@
-# Sprint7MoviesAngular
+# **Sprint 7: Angular Movies Application with Firebase Authentication**
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.1.
+A modern movie discovery web application built with Angular 21, featuring Firebase authentication, real-time movie data from TMDB API, and a responsive user interface with Tailwind CSS.
 
-## Development server
+**Live Demo**: <https://sprint7-movies-angular.vercel.app/>
 
-To start a local development server, run:
+---
+
+## ** Project Overview**
+
+This application enables users to explore popular movies, view detailed information including cast and similar recommendations, and manage their authentication state. Built as part of an IT Academy bootcamp sprint, it demonstrates modern Angular development practices, Firebase integration, and external API consumption.
+
+---
+
+## ** Key Features**
+
+* **Firebase Authentication**: Secure user login/registration with email/password and Google OAuth  
+* **Movie Discovery**: Browse popular movies with infinite scroll functionality  
+* **Detailed Movie Information**: View comprehensive details including synopsis, runtime, ratings, genres, and release dates  
+* **Cast Information**: Display main cast members with photos and character names  
+* **Similar Movies**: Discover related movies using TMDB's intelligent recommendation algorithm  
+* **Real-time State Management**: Reactive data handling using Angular Signals  
+* **Responsive Design**: Mobile-first approach with Tailwind CSS  
+* **Protected Routes**: Authentication-based navigation and access control  
+* **Dynamic Routing**: Navigate between movies while maintaining state
+
+---
+
+## ** Tech Stack**
+
+| Technology | Purpose |
+| ----- | ----- |
+| **Angular 21** | Modern web framework with Standalone Components |
+| **TypeScript** | Type-safe development |
+| **Firebase** | Authentication and user management |
+| **TMDB API** | Movie data and recommendations |
+| **Angular Signals** | Reactive state management |
+| **Tailwind CSS** | Utility-first responsive styling |
+| **Reactive Forms** | Form handling and validation |
+| **Angular Router** | Navigation and route guards |
+| **RxJS** | Asynchronous data streams |
+
+---
+
+## ** Getting Started**
+
+### **Prerequisites**
+
+Ensure you have the following installed:
+
+* Node.js (v18 or higher recommended)  
+* npm (comes with Node.js)  
+* Angular CLI (v21 or higher)
 
 ```bash
-ng serve
+
+npm install \-g @angular/cli
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### **Installation**
 
-## Code scaffolding
+1. **Clone the repository**
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+```bash  
+git clone https://github.com/yourusername/sprint7-movies-angular.git
+
+cd sprint7-movies-angular
+```
+
+2. **Install dependencies**
 
 ```bash
-ng generate component component-name
+
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+3. **Configure environment variables**
+
+Create your environment files:
+
+* `src/environments/environment.development.ts`  
+* `src/environments/firebase.config.ts`
+
+```typescript  
+*// environment.development.ts*  
+export const environment \= {  
+  production: false,  
+  tmdbApiKey: 'YOUR\_TMDB\_API\_KEY',  
+  tmdbBaseUrl: 'https://api.themoviedb.org/3',  
+  tmdbImageBaseUrl: 'https://image.tmdb.org/t/p'  
+};
+
+*// firebase.config.ts*  
+export const firebaseConfig \= {  
+  apiKey: "YOUR\_FIREBASE\_API\_KEY",  
+  authDomain: "your-project.firebaseapp.com",  
+  projectId: "your-project-id",  
+  storageBucket: "your-project.appspot.com",  
+  messagingSenderId: "YOUR\_SENDER\_ID",  
+  appId: "YOUR\_APP\_ID"
+
+};
+```
+
+4. **Start development server**
 
 ```bash
-ng generate --help
+
+ng serve 
 ```
 
-## Building
+The application will open automatically at `http://localhost:4200/`
 
-To build the project run:
+---
 
-```bash
-ng build
+
+## ** Testing**
+
+Run the test suite:
+
+```bash  
+ng test  
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+**Test Coverage:**  
+- Service methods and API calls  
+- Component logic and rendering  
+- Form validation  
+- Authentication flows  
+- HTTP interceptors
 
-## Running unit tests
+---
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## ** Project Structure*  
 
-```bash
-ng test
+![Login Application Demo](./public/gif-login.gif)
+
+![Movies List Application Demo](./public/movies.gif)
+
+
+---
+
+## ** Project Structure*  
+
+```
+sprint7-movies-angular
+
+├──src
+│   ├──app
+│   │   ├──components
+│   │   │   ├──home
+│   │   │   │   ├──home.css
+│   │   │   │   ├──home.html
+│   │   │   │   └──home.ts
+│   │   │   ├──login
+│   │   │   │   ├──login.css
+│   │   │   │   ├──login.html
+│   │   │   │   ├──login.spec.ts
+│   │   │   │   └──login.ts
+│   │   │   ├──movie-info
+│   │   │   │   ├──movie-info.css
+│   │   │   │   ├──movie-info.html
+│   │   │   │   ├──movie-info.spec.ts
+│   │   │   │   └──movie-info.ts
+│   │   │   ├──movie-list
+│   │   │   │   ├──movie-list.css
+│   │   │   │   ├──movie-list.html
+│   │   │   │   ├──movie-list.spec.ts
+│   │   │   │   └──movie-list.ts
+│   │   │   ├──navbar
+│   │   │   │   ├──navbar.css
+│   │   │   │   ├──navbar.html
+│   │   │   │   └──navbar.ts
+│   │   │   └──register
+│   │   │   │   ├──register.css
+│   │   │   │   ├──register.html
+│   │   │   │   ├──register.spec.ts
+│   │   │   │   └──register.ts
+│   │   ├──mapper
+│   │   │   └──movie.mapper.ts
+│   │   ├──models
+│   │   │   ├──credits.interface.ts
+│   │   │   ├──movie-api.interface.ts
+│   │   │   ├──movie-details.interface.ts
+│   │   │   └──movie.interface.ts
+│   │   ├──services
+│   │   │   ├──auth.spec.ts
+│   │   │   ├──auth.ts
+│   │   │   ├──movies.spec.ts
+│   │   │   └──movies.ts
+│   │   ├──validators
+│   │   │   └──password-match.validator.ts
+│   │   ├──app.config.ts
+│   │   ├──app.css
+│   │   ├──app.html
+│   │   ├──app.routes.ts
+│   │   └──app.ts
+│   ├──assets
+│   │   └──logo-icon.svg
+│   ├──environments
+│   │   ├──environment.development.ts
+│   │   ├──environment.ts
+│   │   └──firebase.config.ts
+│   ├──index.html
+│   ├──main.ts
+│   └──styles.css
+
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## ** Core Functionality**
 
-```bash
-ng e2e
-```
+### **1. Authentication System**
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+* **Email/Password Authentication**: Secure registration and login  
+* **Google OAuth Integration**: One-click social authentication  
+* **Form Validation**: Real-time validation with custom validators  
+* **Password Confirmation**: Custom validator ensures passwords match  
+* **Protected Routes**: Access control based on authentication state  
+* **Persistent Sessions**: Firebase maintains user sessions
 
-## Additional Resources
+### **2. Movie Discovery**
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+* **Infinite Scroll**: Automatically loads more movies as you scroll  
+* **Popular Movies**: Displays trending and highly-rated films  
+* **Responsive Grid**: Adapts from 2 to 5 columns based on screen size  
+* **Lazy Loading**: Images load only when visible for better performance  
+* **Hover Effects**: Interactive cards with smooth animations
+
+### **3. Detailed Movie View**
+
+* **Comprehensive Information**: Title, tagline, synopsis, runtime, ratings  
+* **Visual Layout**: Large poster with organized metadata  
+* **Genre Tags**: Color-coded genre indicators  
+* **Cast Display**: Photos and character names of main actors  
+* **Similar Movies**: 6 related films using TMDB's algorithm  
+* **Clickable Recommendations**: Navigate to similar movies seamlessly
+
+### **4. State Management**
+
+* **Angular Signals**: Reactive state updates without manual subscriptions  
+* **Computed Values**: Derived state calculations  
+* **Signal Effects**: Side effects triggered by state changes  
+* **Centralized State**: Single source of truth in services
+
+---
+
+
+
+## ** Deployment**
+
+<https://sprint7-movies-angular.vercel.app/>
+
+
+---
+
+
+## ** Author**
+
+**Nerea Medina Carrasco**
+
+* GitHub: [@nereame96](https://github.com/nereame96)  
+* Project: [sprint7-movies-angular](https://github.com/nereame96/sprint7-movies-angular)
+
