@@ -57,7 +57,7 @@ export class MoviesService {
       this.totalPages.set(resp.total_pages)
       this.currentPage.update(page => page + 1)
       this.isLoading.set(false)
-      console.log({ newMovies })
+
 
       },
       error: (err) => {
