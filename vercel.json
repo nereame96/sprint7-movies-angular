@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npm run build-vercel",
+  "outputDirectory": "dist/sprint7-movies-angular/browser",
+  "framework": "angular",
+  "installCommand": "npm install"
+}
