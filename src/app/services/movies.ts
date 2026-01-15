@@ -17,6 +17,8 @@ export class MoviesService {
   private apiKey = environment.tmdbApiKey
   private imageBaseUrl = environment.tmdbImageBaseUrl
   private http = inject(HttpClient)
+  errorMessage = signal<string | null>(null)
+
 
   popularMovies = signal<Movie[]>([])
   currentPage = signal<number>(1)
@@ -60,8 +62,8 @@ export class MoviesService {
 
 
       },
-      error: (err) => {
-      console.error('Error loading movies', err)
+      error: () => {
+      this.errorMessage.set('Error loading movies')
       this.isLoading.set(false)
       }
     })
@@ -86,8 +88,8 @@ export class MoviesService {
         this.loadingDetails.set(false)
       },
 
-    error: (err) => {
-      console.error('Error geting movie details', err)
+    error: () => {
+      this.errorMessage.set('Error geting movie details')
       this.loadingDetails.set(false)
     }
 
@@ -111,8 +113,8 @@ export class MoviesService {
         this.loadingCredits.set(false)
       },
 
-      error: (err) => {
-        console.error('Error geting movie credits', err)
+      error: () => {
+        this.errorMessage.set('Error geting movie credits')
         this.loadingCredits.set(false)
       }
     })
@@ -137,8 +139,8 @@ export class MoviesService {
         this.similarMovies.set(movies.slice(0, 6))
         this.loadingSimilarMovies.set(false)
       },
-      error: (err) => {
-        console.error('Error geting similar movies', err)
+      error: () => {
+        this.errorMessage.set('Error geting similar movies')
         this.loadingSimilarMovies.set(false)
       }
     })
