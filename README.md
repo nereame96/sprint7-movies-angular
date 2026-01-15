@@ -2,7 +2,7 @@
 
 A modern movie discovery web application built with Angular 21, featuring Firebase authentication, real-time movie data from TMDB API, and a responsive user interface with Tailwind CSS.
 
-**Live Demo**: [sprint7-movies-angular] (https://sprint7-movies-angular.vercel.app/)
+**Live Demo**: [sprint7-movies-angular](https://sprint7-movies-angular.vercel.app/)
 
 ---
 
