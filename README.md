@@ -2,17 +2,17 @@
 
 A modern movie discovery web application built with Angular 21, featuring Firebase authentication, real-time movie data from TMDB API, and a responsive user interface with Tailwind CSS.
 
-**Live Demo**: <https://sprint7-movies-angular.vercel.app/>
+**Live Demo**: [sprint7-movies-angular] (https://sprint7-movies-angular.vercel.app/)
 
 ---
 
-## ** Project Overview**
+## **Project Overview**
 
 This application enables users to explore popular movies, view detailed information including cast and similar recommendations, and manage their authentication state. Built as part of an IT Academy bootcamp sprint, it demonstrates modern Angular development practices, Firebase integration, and external API consumption.
 
 ---
 
-## ** Key Features**
+## **Key Features**
 
 * **Firebase Authentication**: Secure user login/registration with email/password and Google OAuth  
 * **Movie Discovery**: Browse popular movies with infinite scroll functionality  
@@ -26,7 +26,7 @@ This application enables users to explore popular movies, view detailed informat
 
 ---
 
-## ** Tech Stack**
+## **Tech Stack**
 
 | Technology | Purpose |
 | ----- | ----- |
@@ -42,7 +42,7 @@ This application enables users to explore popular movies, view detailed informat
 
 ---
 
-## ** Getting Started**
+## **Getting Started**
 
 ### **Prerequisites**
 
@@ -82,7 +82,7 @@ Create your environment files:
 * `src/environments/firebase.config.ts`
 
 ```typescript  
-*// environment.development.ts*  
+// environment.development.ts*  
 export const environment \= {  
   production: false,  
   tmdbApiKey: 'YOUR\_TMDB\_API\_KEY',  
@@ -90,7 +90,7 @@ export const environment \= {
   tmdbImageBaseUrl: 'https://image.tmdb.org/t/p'  
 };
 
-*// firebase.config.ts*  
+// firebase.config.ts*  
 export const firebaseConfig \= {  
   apiKey: "YOUR\_FIREBASE\_API\_KEY",  
   authDomain: "your-project.firebaseapp.com",  
@@ -114,7 +114,7 @@ The application will open automatically at `http://localhost:4200/`
 ---
 
 
-## ** Testing**
+## **Testing**
 
 Run the test suite:
 
@@ -131,7 +131,7 @@ ng test
 
 ---
 
-## ** Project Structure*  
+## **Demo**  
 
 ![Login Application Demo](./public/gif-login.gif)
 
@@ -140,7 +140,7 @@ ng test
 
 ---
 
-## ** Project Structure*  
+## **Project Structure**  
 
 ```
 sprint7-movies-angular
@@ -209,7 +209,7 @@ sprint7-movies-angular
 
 ---
 
-## ** Core Functionality**
+## **Core Functionality**
 
 ### **1. Authentication System**
 
@@ -248,7 +248,7 @@ sprint7-movies-angular
 
 
 
-## ** Deployment**
+## **Deployment**
 
 <https://sprint7-movies-angular.vercel.app/>
 
@@ -256,7 +256,7 @@ sprint7-movies-angular
 ---
 
 
-## ** Author**
+## **Author**
 
 **Nerea Medina Carrasco**
 
